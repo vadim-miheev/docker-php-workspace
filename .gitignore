@@ -20,6 +20,7 @@
 /redis/data/**
 !/redis/data/.gitkeep
 /nginx/logs/**
+/nginx/ssl/**
 !/nginx/logs/.gitkeep
 
 # Файлы web-проектов
