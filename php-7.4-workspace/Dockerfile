@@ -68,16 +68,15 @@ RUN php -m
 RUN docker-php-ext-configure bcmath --enable-bcmath;
 
 RUN docker-php-ext-configure gd  \
-            --with-freetype-dir=/usr/include/  \
-            --with-jpeg-dir=/usr/include/  \
-            --with-png-dir=/usr/include/
+            --with-freetype=/usr/include/  \
+            --with-jpeg=/usr/include/
 
 RUN docker-php-ext-configure gettext
 RUN docker-php-ext-configure intl --enable-intl
 RUN docker-php-ext-configure opcache --enable-opcache
 RUN docker-php-ext-configure pcntl --enable-pcntl
 RUN docker-php-ext-configure soap
-RUN docker-php-ext-configure zip --enable-zip --with-libzip
+RUN docker-php-ext-configure zip
 RUN docker-php-ext-install exif \
         mysqli \
         opcache \
