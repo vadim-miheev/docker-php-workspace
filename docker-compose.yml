@@ -17,7 +17,6 @@ services:
       - ./nginx/logs:/var/log/nginx/
       - ./nginx/ssl:/etc/nginx/ssl
     depends_on:
-      - php-7.1
       - php-7.3
       - php-7.4
       - mysql-8
@@ -170,6 +169,7 @@ services:
         DOCKER_PHP_VERSION: '7.3'
         DOCKER_PHP_ENABLE_XDEBUG: ${DOCKER_PHP_ENABLE_XDEBUG}
         TZ: ${WORKSPACE_TIMEZONE}
+        MONGO_VERSION: 'mongodb-1.11.1'
         XDEBUG_VERSION: 'xdebug-3.1.6'
     working_dir: /var/www
     container_name: php-7.3
@@ -187,28 +187,3 @@ services:
       - 'project-2.localhost:192.168.65.2'
       - 'project-3.localhost:192.168.65.2'
 
-  php-7.1:
-    build:
-      context: php-7-workspace
-      dockerfile: Dockerfile
-      args:
-        DOCKER_PHP_VERSION: '7.1'
-        DOCKER_PHP_ENABLE_XDEBUG: ${DOCKER_PHP_ENABLE_XDEBUG}
-        TZ: ${WORKSPACE_TIMEZONE}
-        MONGO_VERSION: 'mongodb-1.11.1'
-        XDEBUG_VERSION: 'xdebug-2.9.8'
-    working_dir: /var/www
-    container_name: php-7.1
-    volumes:
-      - ./.ssh:/home/www-data/.ssh
-      - ./projects:/var/www
-      - ./php-ini/7.1/php.ini:/usr/local/etc/php/php.ini
-      - ./php-workers/7.1/supervisor.d:/etc/supervisor.d
-    ports:
-      - "${PHP_7_1_PORT}:9000"
-    networks:
-      - backend
-    extra_hosts:
-      - 'project-1.localhost:192.168.65.2'
-      - 'project-2.localhost:192.168.65.2'
-      - 'project-3.localhost:192.168.65.2'
